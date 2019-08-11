@@ -1,19 +1,10 @@
 import Route from '@ember/routing/route';
+import { RouteQueryManager } from 'ember-apollo-client';
+import query from 'hackernews-ember-apollo/gql/queries/allLinks';
 
-export default Route.extend({
+export default Route.extend(RouteQueryManager, {
+
   model(){
-    return [
-      { 
-        id: '1',
-        description: 'The Coolest GraphQL Backend 😎',
-        url: 'https://www.graph.cool'
-      },
-      {
-        id: '2',
-        description: 'The Best GraphQL Client',
-        url: 'http://dev.apollodata.com/'
-    
-      }
-    ]
+    return this.apollo.watchQuery({query}, 'allLinks').catch(error => alert(error))
   }
 });
