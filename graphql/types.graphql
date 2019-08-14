@@ -27,6 +27,7 @@ type Link @model {
   createdAt: DateTime!
   id: ID! @isUnique
   updatedAt: DateTime!
+  postedBy: User @relation(name: "UserLinks")
 }
 
 type File @model {
@@ -40,8 +41,20 @@ type File @model {
   url: String! @isUnique
 }
 
+# added by email-password template: (please uncomment)
 type User @model {
-  createdAt: DateTime!
-  id: ID! @isUnique
-  updatedAt: DateTime!
+  # Required system field:
+  id: ID! @isUnique # read-only (managed by Graphcool)
+ 
+  # Optional system fields (remove if not needed):
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
+ 
+  email: String! @isUnique
+  password: String!
+
+  name: String
+  links: [Link!]! @relation(name: "UserLinks")
 }
+ 
+
