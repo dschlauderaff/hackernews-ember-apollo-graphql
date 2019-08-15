@@ -10,7 +10,6 @@
 #   # posts: [Post!]! @relation(name: "UserPosts")
 # }
 
-
 # Uncomment the model below as well
 
 # type Post @model {
@@ -45,16 +44,12 @@ type File @model {
 type User @model {
   # Required system field:
   id: ID! @isUnique # read-only (managed by Graphcool)
- 
   # Optional system fields (remove if not needed):
   createdAt: DateTime! # read-only (managed by Graphcool)
   updatedAt: DateTime! # read-only (managed by Graphcool)
- 
   email: String! @isUnique
   password: String!
 
-  name: String
+  name: String! @migrationValue(value: "test")
   links: [Link!]! @relation(name: "UserLinks")
 }
- 
-
