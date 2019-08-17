@@ -8,12 +8,12 @@
   </h4>
   <form {{action 'loginOrSignUp' on='submit'}} class='flex flex-column'>
     {{#unless loginState}}
-    {{input type='text' class='mb2' placeholder='Your name' value=name}}
+    <Input type='text' class='mb2' placeholder='Your name' @value={{name}} />
     {{/unless}}
-    {{input type='text' class='mb2' placeholder='Your email address' value=email}}
-    {{input type='password' class='mb2' placeholder='Choose a safe password' value=password}}
+    <Input type='text' class='mb2' placeholder='Your email address' @value={{email}} />
+    <Input type='password' class='mb2' placeholder='Choose a safe password' @value={{password}} />
     <div class='flex'>
-      {{input type='submit' class='mr2' value=(if loginState 'login' 'create account')}}
+      <Input type='submit' class='mr2' @value={{if loginState 'login' 'create account'}} />
       <button {{action 'changeLoginState'}}>
         {{#if loginState}}
         need to create an account?

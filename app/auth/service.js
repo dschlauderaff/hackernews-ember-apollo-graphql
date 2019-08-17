@@ -1,5 +1,4 @@
-import Service from "@ember/service";
-import { inject as service } from "@ember/service";
+import Service, { inject as service } from "@ember/service";
 import { computed } from "@ember/object";
 import signInUserMutation from "hackernews-ember-apollo/gql/mutations/signInUser";
 import createUser from "hackernews-ember-apollo/gql/mutations/createUser";
@@ -32,7 +31,8 @@ export default Service.extend({
           mutation: signInUserMutation,
           variables
         });
-        this.saveUserData(result.user.id, result.token);
+        const { authenticateUser } = result
+        this.saveUserData(authenticateUser.id, authenticateUser.token);
       } else {
         variables = { name, email, password };
         const result = await apollo.mutate({
@@ -40,7 +40,6 @@ export default Service.extend({
           variables
         });
 
-        debugger
         const { signupUser } = result;
         this.saveUserData(signupUser.id, signupUser.token);
       }
@@ -50,8 +49,10 @@ export default Service.extend({
   },
 
   async logout() {
-    await this.removeUserId();
-    await this.removeAuthToken();
+    const wait1 = this.removeUserId();
+    const wait2 = this.removeAuthToken();
+    await wait1
+    await wait2
   },
 
   saveUserData(id, token) {

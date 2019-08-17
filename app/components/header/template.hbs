@@ -2,7 +2,18 @@
   <div class='flex flex-fixed black'>
     <div class='fw7 mr1'>Hacker News</div>
     <LinkTo @route='links' class='ml1 no-underline black'>new</LinkTo>
+    {{#if userLoggedIn}}
     <div class='ml1'>|</div>
     <LinkTo @route='create' class='ml1 no-underline black'>submit</LinkTo>
+    {{/if}}
+  </div>
+  <div class="flex flex-fixed">
+    {{#if userLoggedIn}}
+    <div class="ml1 pointer black" {{action 'logout'}}>
+      logout
+    </div>
+    {{else}}
+    <LinkTo @route='login' class='ml1 no-underline black'>login</LinkTo>
+    {{/if}}
   </div>
 </div>

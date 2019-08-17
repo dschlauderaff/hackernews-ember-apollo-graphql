@@ -41,7 +41,7 @@ export default async (event: FunctionEvent<EventData>) => {
     const hash = await bcrypt.hash(password, salt);
 
     // create new user
-    const userId = await createGraphcoolUser(api, name, email, hash);
+    const userId = await createGraphcoolUser(api, email, hash, name);
 
     // generate node token for new User node
     const token = await graphcool.generateNodeToken(userId, "User");
